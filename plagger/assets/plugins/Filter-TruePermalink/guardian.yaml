@@ -1,0 +1,3 @@
+author: Nab Inno
+match: http://www\.guardian\.co\.uk/
+rewrite: s!\?.*!!

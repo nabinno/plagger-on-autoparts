@@ -1,0 +1,8 @@
+author: Nab Inno
+match: http://www\.reddit\.com/r/.*
+rewrite: |
+  if ($args->{entry}->body =~ m!<br/> <a href="(.*)">\[link\]</a>!) {
+      $_ = $1;
+      $args->{entry}->link($_);
+      return 1;
+  }

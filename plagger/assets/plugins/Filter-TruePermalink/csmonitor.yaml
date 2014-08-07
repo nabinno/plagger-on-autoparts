@@ -1,0 +1,3 @@
+author: Nab Inno
+match: http://www\.csmonitor\.com/
+rewrite: s!\?.*!!

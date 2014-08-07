@@ -1,0 +1,101 @@
+package Plagger::Plugin::Publish::Jaiku;
+use strict;
+use base qw( Plagger::Plugin );
+
+use Encode;
+use Net::Jaiku;
+use Time::HiRes qw(sleep);
+
+sub register {
+    my($self, $context) = @_;
+    $context->register_hook(
+        $self,
+        'publish.entry' => \&publish_entry,
+        'plugin.init'   => \&initialize,
+    );
+}
+
+sub initialize {
+    my($self, $context) = @_;
+    my %opt = (
+        username => $self->conf->{username},
+        userkey => $self->conf->{userkey},
+    );
+    $opt{userkey} = $self->conf->{userkey_password} unless($self->conf->{userkey});
+    $self->{jaiku} = Net::Jaiku->new(%opt);
+}
+
+sub publish_entry {
+    my($self, $context, $args) = @_;
+
+    my $body = $self->templatize('jaiku.tt', $args);
+    # TODO: FIX when Summary configurable.
+    if ( length($body) > 159 ) {
+        $body = substr($body, 0, 159);
+    }
+    $context->log(info => "Updating Jaiku status to '$body'");
+    $self->{jaiku}->setPresence( message => encode_utf8($body) ) or $context->error("Can't update jaiku status");
+
+    my $sleeping_time = $self->conf->{interval} || 15;
+    $context->log(info => "sleep $sleeping_time.");
+    sleep( $sleeping_time );
+}
+
+1;
+__END__
+
+=head1 NAME
+
+Plagger::Plugin::Publish::Jaiku - Update your status with feeds
+
+=head1 SYNOPSIS
+
+  - module: Publish::Jaiku
+    config:
+      username: jaiku-id
+      userkey: jaiku-apikey
+
+=head1 DESCRIPTION
+
+This plugin sends feed entries summary to your jaiku account status.
+
+=head1 CONFIG
+
+=over 4
+
+=item username
+
+Jaiku username. Required.
+
+=item userkey
+
+Jaiku apikey.
+use userkey_password instead of userkey if you want to crypt it.
+
+=item userkey_password
+
+Optional for userkey.
+
+=item interval
+
+Optional.
+
+=item interval
+
+Optional.
+
+=item timeout
+
+Optional.
+
+=back
+
+=head1 AUTHOR
+
+Yasuhiro Matsumoto
+
+=head1 SEE ALSO
+
+L<Plagger>, L<Net::Jaiku>
+
+=cut

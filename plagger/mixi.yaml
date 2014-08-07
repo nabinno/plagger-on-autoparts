@@ -1,0 +1,46 @@
+include:
+  - ~/plagger/base.yaml
+
+
+
+plugins:
+  - module: CustomFeed::Mixi
+    config:
+      email:               XXX
+      password:            base64::XXX
+      fetch_body:          1
+      fetch_body_internal: 1.5
+      fetch_items:         10
+      show_icon:           1
+      feed_type:
+        - FriendDiary
+#       - RecentComment
+#       - Message
+
+  - module: Filter::Rule
+    rule:
+      module: Fresh
+      mtime:
+        path:       ~/plagger/.tmp/mixi
+        autoupdate: 1
+
+  - module: Publish::Gmail
+    rule:
+      - module: Rating
+        rate:   '>= 0'
+    config:
+      mailto:   XXX+plagger_mixi@gmail.com
+      mailfrom: noreply@plagger.com
+      mailroute:
+#       via:      smtp_tls
+#       host:     smtp.gmail.com:587
+#       username: XXX@gmail.com
+#       password: base64::XXX
+        via:      smtp
+        host:     <domain>.sakura.ne.jp
+        username: XXX@<domain>.sakura.ne.jp
+        password: base64::XXX
+      pop3:
+        host:     <domain>.sakura.ne.jp
+        username: XXX@<domain>.sakura.ne.jp
+        password: base64::XXX

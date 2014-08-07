@@ -1,0 +1,16 @@
+/home/sgkk/local/lib/perl5/XML/XPathEngine.pm
+/home/sgkk/local/lib/perl5/XML/XPathEngine/Boolean.pm
+/home/sgkk/local/lib/perl5/XML/XPathEngine/Expr.pm
+/home/sgkk/local/lib/perl5/XML/XPathEngine/Function.pm
+/home/sgkk/local/lib/perl5/XML/XPathEngine/Literal.pm
+/home/sgkk/local/lib/perl5/XML/XPathEngine/LocationPath.pm
+/home/sgkk/local/lib/perl5/XML/XPathEngine/NodeSet.pm
+/home/sgkk/local/lib/perl5/XML/XPathEngine/Number.pm
+/home/sgkk/local/lib/perl5/XML/XPathEngine/Root.pm
+/home/sgkk/local/lib/perl5/XML/XPathEngine/Step.pm
+/home/sgkk/local/lib/perl5/XML/XPathEngine/Variable.pm
+/home/sgkk/local/man/man3/XML::XPathEngine.3
+/home/sgkk/local/man/man3/XML::XPathEngine::Boolean.3
+/home/sgkk/local/man/man3/XML::XPathEngine::Literal.3
+/home/sgkk/local/man/man3/XML::XPathEngine::NodeSet.3
+/home/sgkk/local/man/man3/XML::XPathEngine::Number.3

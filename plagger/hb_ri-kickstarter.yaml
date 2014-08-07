@@ -1,0 +1,97 @@
+global:
+  plugin_path:
+    - /home/805/plagger/plugin
+  assets_path: /home/805/plagger/assets
+  timezone: Asia/Tokyo
+  log:
+    level: info    # debug
+    # level: error
+  cache:
+    base: /home/805/plagger
+
+
+plugins:
+  - module: Cache
+    config:
+      file: /home/805/plagger/cache
+      diff_mode: 1
+  - module: Subscription::Config
+    config:
+      feed:
+        - url: http://b.hatena.ne.jp/entrylist?sort=hot&threshold=3&url=https%3A%2F%2Fwww.kickstarter.com&mode=rss
+  - module: Filter::TruePermalink
+
+  - module: Filter::Rule
+    rule:
+      - expression: $args->{entry}->{date} = undef; 1
+      - module: Deduped
+        path: /home/805/plagger/Deduped.db
+      - expression: $args->{entry}->link !~ /.*AutoAuto.*/
+      - expression: $args->{entry}->link !~ /.*bono1978.*/
+      - expression: $args->{entry}->link !~ /.*livedoor.*/
+      - expression: $args->{entry}->link !~ /.*thir.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*adminforums\.org\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*adminshut\.com\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*bsbnyc\.net\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*freelancer\.com\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*freemakemoneyadvice\.com\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*freevacationsrentals\.com\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*lunaticprophet\.org\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*seo-usa\.org\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*sfgate\.com\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*togetter\.com\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*torify\.com\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*twitter.*\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*yoonaddict\.com\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*bazubu\.com\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*4-5matworks\.com\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*seojapan\.com\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*56doc\.net\/.*/
+      - expression: $args->{entry}->link !~ /.*hagex.*/
+      - expression: $args->{entry}->link !~ /.*ikedahayato.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*assioma\.jp\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*ficc\.jp\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*soompi.*\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*searchengine.*\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*coliss.*\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/.*liginc.*\/.*/
+
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+
+      # - expression: $arg->{entry}->title !~ /^(hogehoge|kunekune).*/
+
+  # - module: Filter::HatenaBookmarkTag
+  - module: Filter::RemoveTags
+  - module: Filter::AddTags
+    config:
+      tags:
+        - kickstarter
+        - business-promotion
+        - unread
+  # - module: Filter::EntryFullText
+  #   config:
+  #     store_html_on_failure: 1
+  - module: Filter::BreakEntriesToFeeds
+    config:
+      use_entry_title: 1
+  - module: Publish::HatenaBookmark
+    rule:
+      expression: not $args->{entry}->has_tag('toread')
+    config:
+      username: i65c
+      password: base64::cXFoOWxlOXo2Mw==
+      interval: 4
+      post_body: 0
+

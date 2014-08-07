@@ -1,0 +1,252 @@
+LOG:  database system was shut down at 2014-07-19 16:20:37 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-07-19 16:20:42 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-07-19 16:27:16 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  database "utagaki_development" already exists
+STATEMENT:  CREATE DATABASE "utagaki_development" ENCODING = 'unicode'
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-07-19 20:00:19 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-07-20 17:00:36 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-07-21 17:00:37 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-07-22 20:00:24 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-07-23 17:00:25 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  column books.name does not exist at character 38
+STATEMENT:  SELECT "books".* FROM "books"  WHERE "books"."name" = 'aaa'
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-07-24 18:00:21 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-07-25 19:00:23 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  invalid input syntax for integer: "first"
+STATEMENT:  SELECT  "books".* FROM "books"  WHERE "books"."id" = $1 LIMIT 1
+ERROR:  invalid input syntax for integer: "all"
+STATEMENT:  SELECT  "books".* FROM "books"  WHERE "books"."id" = $1 LIMIT 1
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-07-26 17:00:20 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-07-27 20:00:25 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-07-28 18:00:35 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-07-30 17:00:29 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-07-31 10:00:37 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-07-31 17:00:39 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-01 00:00:25 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-01 03:00:32 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-01 17:00:31 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-02 13:00:20 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-02 19:00:28 UTC
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  the database system is starting up
+LOG:  could not send data to client: Broken pipe
+FATAL:  the database system is starting up
+LOG:  database system was interrupted; last known up at 2014-08-02 23:44:32 UTC
+LOG:  database system was not properly shut down; automatic recovery in progress
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+LOG:  record with zero length at 0/1786510
+LOG:  redo is not required
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+LOG:  could not send data to client: Broken pipe
+LOG:  database system was interrupted; last known up at 2014-08-04 02:14:22 UTC
+LOG:  database system was not properly shut down; automatic recovery in progress
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+LOG:  record with zero length at 0/1786570
+LOG:  redo is not required
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  the database system is starting up
+LOG:  could not send data to client: Broken pipe
+LOG:  database system was interrupted; last known up at 2014-08-04 11:22:10 UTC
+LOG:  database system was not properly shut down; automatic recovery in progress
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+LOG:  record with zero length at 0/17865D0
+LOG:  redo is not required
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+FATAL:  the database system is starting up
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started

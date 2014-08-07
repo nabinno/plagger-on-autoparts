@@ -1,0 +1,7 @@
+include:
+  - ~/plagger/base.yaml
+  - ~/plagger/sns.yaml
+
+recipes:
+  - frepa
+  - publish

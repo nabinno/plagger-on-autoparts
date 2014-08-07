@@ -1,0 +1,69 @@
+# PERL5LIB=/home/805/local/lib/perl5:/home/805/local/lib/perl5/site_perl
+# PATH=/home/805/perl5/perlbrew/bin:/home/805/perl5/perlbrew/perls/perl-5.8.9/bin:/home/805/bin:/home/805/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/home/805/bin
+# PERLBREW_PATH=/home/805/perl5/perlbrew/bin:/home/805/perl5/perlbrew/perls/perl-5.8.9/bin
+# PERLBREW_HOME=/home/805/.perlbrew
+# PERLBREW_ROOT=/home/805/perl5/perlbrew
+
+# 0 1 * * * minicpan -q > /dev/null 2>&1
+0 0 * * * /usr/sbin/ntpdate ntp1.jst.mfeed.ad.jp /dev/null 2>&1
+10 0 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_yu76.yaml > /dev/null 2>&1
+0 1 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_news-peoplesdaily.yaml > /dev/null 2>&1
+20 1 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_news-bbc.yaml > /dev/null 2>&1
+30 1 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_news-bloomberg.yaml > /dev/null 2>&1
+40 1 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_news-cnn.yaml > /dev/null 2>&1
+50 1 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_news-guardian.yaml > /dev/null 2>&1
+0 2 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_news-newyorktimes.yaml > /dev/null 2>&1
+10 2 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_news-reuters.yaml > /dev/null 2>&1
+20 2 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_news-washingtonpost.yaml > /dev/null 2>&1
+30 2 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_ri-daiwainstituteofresearch.yaml > /dev/null 2>&1
+40 2 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_ri-nttdata.yaml > /dev/null 2>&1
+50 2 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_ri-teikokudatabank.yaml > /dev/null 2>&1
+0 3 * * * rm -f /home/805/plagger/Deduped.db > /dev/null 2>&1
+10 3 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_childprotection.yaml > /dev/null 2>&1
+20 3 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_childprotection-labor.yaml > /dev/null 2>&1
+30 3 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_childprotection-pornography.yaml > /dev/null 2>&1
+40 3 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_childprotection-prostitution.yaml > /dev/null 2>&1
+50 3 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_dating.yaml > /dev/null 2>&1
+0 4 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_buzz.yaml > /dev/null 2>&1
+10 4 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_buzz-medium.yaml > /dev/null 2>&1
+30 4 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_keizaireport-corporate.yaml > /dev/null 2>&1
+40 4 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_keizaireport-ec.yaml > /dev/null 2>&1
+50 4 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_keizaireport-env.yaml > /dev/null 2>&1
+0 5 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_keizaireport-forecast-jpn.yaml > /dev/null 2>&1
+10 5 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_keizaireport-forecast-world.yaml > /dev/null 2>&1
+20 5 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_keizaireport-fx.yaml > /dev/null 2>&1
+30 5 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_keizaireport-hr.yaml > /dev/null 2>&1
+40 5 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_keizaireport-local-jpn.yaml > /dev/null 2>&1
+50 5 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_keizaireport-realestate.yaml > /dev/null 2>&1
+0 6 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_keizaireport-sociology.yaml > /dev/null 2>&1
+10 6 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_keizaireport-steelmaking.yaml > /dev/null 2>&1
+20 6 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_keizaireport-stock.yaml > /dev/null 2>&1
+30 6 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_keizaireport-webservice.yaml > /dev/null 2>&1
+40 6 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_ad-seo.yaml > /dev/null 2>&1
+50 6 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_ad-seo-google.yaml > /dev/null 2>&1
+0 7 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_ad-dentsu.yaml > /dev/null 2>&1
+10 7 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_ad-hakuhodo.yaml > /dev/null 2>&1
+20 7 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_ad-yahoo.yaml > /dev/null 2>&1
+0 8 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_se-kennejima.yaml > /dev/null 2>&1
+10 8 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_se-naoyaito.yaml > /dev/null 2>&1
+20 8 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_se-tatsuhikomiyagawa.yaml > /dev/null 2>&1
+30 8 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_se-heroku.yaml > /dev/null 2>&1
+40 8 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_se-rubyonrails.yaml > /dev/null 2>&1
+50 8 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_se-postgresql.yaml > /dev/null 2>&1
+0 9 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_se-github.yaml > /dev/null 2>&1
+10 9 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_se-bitbucket.yaml > /dev/null 2>&1
+20 9 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_se-angularjs.yaml > /dev/null 2>&1
+30 9 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_se-xkcd.yaml > /dev/null 2>&1
+40 9 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_se-oreilly.yaml > /dev/null 2>&1
+0 10 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_ri-kickstarter.yaml > /dev/null 2>&1
+# 0 12 * * * rm -f /home/805/plagger/Deduped.db > /dev/null 2>&1
+# 0 13 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_buzz.yaml > /dev/null 2>&1
+0 14 * * * rm -f /home/805/plagger/Deduped.db > /dev/null 2>&1
+0 15 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_art.yaml > /dev/null 2>&1
+0 16 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_electronica.yaml > /dev/null 2>&1
+0 17 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_buzz.yaml > /dev/null 2>&1
+0 18 * * * /usr/local/bin/plagger -c /home/805/plagger/hb.yaml > /dev/null 2>&1
+0 19 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_ec.yaml > /dev/null 2>&1
+# 0 22 * * * rm -f /home/805/plagger/Deduped.db > /dev/null 2>&1
+# 0 23 * * * /usr/local/bin/plagger -c /home/805/plagger/hb_buzz.yaml > /dev/null 2>&1
+

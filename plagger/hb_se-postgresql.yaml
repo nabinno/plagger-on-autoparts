@@ -1,0 +1,69 @@
+global:
+  plugin_path:
+    - /home/805/plagger/plugin
+  assets_path: /home/805/plagger/assets
+  timezone: Asia/Tokyo
+  log:
+    level: info    # debug
+    # level: error
+  cache:
+    base: /home/805/plagger
+
+
+plugins:
+  - module: Cache
+    config:
+      file: /home/805/plagger/cache
+      diff_mode: 1
+  - module: Subscription::Config
+    config:
+      feed:
+        - url: http://b.hatena.ne.jp/search/tag?safe=off&q=postgresql&mode=rss
+        - url: http://b.hatena.ne.jp/search/title?safe=off&q=postgresql&mode=rss
+  - module: Filter::TruePermalink
+
+  - module: Filter::Rule
+    rule:
+      - expression: $args->{entry}->{date} = undef; 1
+      - module: Deduped
+        path: /home/805/plagger/Deduped.db
+
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+
+      # - expression: $arg->{entry}->title !~ /^(hogehoge|kunekune).*/
+
+  # - module: Filter::HatenaBookmarkTag
+  - module: Filter::RemoveTags
+  - module: Filter::AddTags
+    config:
+      tags:
+        - postgresql
+        - software-engineering
+        - unread
+  # - module: Filter::EntryFullText
+  #   config:
+  #     store_html_on_failure: 1
+  - module: Filter::BreakEntriesToFeeds
+    config:
+      use_entry_title: 1
+  - module: Publish::HatenaBookmark
+    rule:
+      expression: not $args->{entry}->has_tag('toread')
+    config:
+      username: i65c
+      password: base64::cXFoOWxlOXo2Mw==
+      interval: 4
+      post_body: 0
+

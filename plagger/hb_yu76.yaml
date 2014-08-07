@@ -1,0 +1,74 @@
+global:
+  plugin_path:
+    - /home/805/plagger/plugin
+  assets_path: /home/805/plagger/assets
+  timezone: Asia/Tokyo
+  log:
+    level: info    # debug
+    # level: error
+  cache:
+    base: /home/805/plagger
+
+
+plugins:
+  - module: Cache
+    config:
+      file: /home/805/plagger/cache
+      diff_mode: 1
+  - module: Subscription::Config
+    config:
+      feed:
+        - url: http://b.hatena.ne.jp/i65c/rss?tag=food
+        - url: http://b.hatena.ne.jp/i65c/rss?tag=nuclear-power-phase-out
+        - url: http://b.hatena.ne.jp/i65c/rss?tag=nuclear-weapon
+        - url: http://b.hatena.ne.jp/i65c/rss?tag=radiation-poisoning
+        - url: http://b.hatena.ne.jp/i65c/rss?tag=contamination-control
+        - url: http://b.hatena.ne.jp/i65c/rss?tag=radioactive-debris
+        - url: http://b.hatena.ne.jp/i65c/rss?tag=anti-nuclear-movement
+  - module: Filter::Rule
+    rule:
+      - expression: $args->{entry}->{date} = undef; 1
+      - module: Deduped
+        path: /home/805/plagger/Deduped_hb_yu76.db
+      # - expression: $arg->{entry}->title !~ /^(hogehoge|kunekune).*/
+      # - expression: $arg->{entry}->link !~ /^(hogehoge|kunekune).*/
+  # - module: Filter::HatenaBookmarkTag
+  - module: Filter::RemoveTags
+  - module: Filter::AddTags
+    config:
+      tags:
+        - unread
+  # - module: Filter::EntryFullText
+  #   config:
+  #     store_html_on_failure: 1
+  - module: Filter::BreakEntriesToFeeds
+    config:
+      use_entry_title: 1
+  - module: Publish::HatenaBookmark
+    rule:
+      expression: not $args->{entry}->has_tag('toread')
+    config:
+      username: yu76
+      password: base64::aDgyd2U1NWJtaA==
+      interval: 4
+      post_body: 0
+
+
+# define_recipes:
+#   publish:
+#     - module: Search::Rast
+#       config:
+#         encode: euc_jp
+#         replace: 1
+#         dir: ~/plagger/rast
+#     - module: Publish::Gmail
+#       rule:
+#         - module: Rating
+#           rate: '>= 0'
+#       config:
+#         mailto: g8fgkv@gmail.com
+#         mailfrom: g8fgkv@gmail.com
+#         mailroute:
+#           via: smtp
+#           host: localhost
+

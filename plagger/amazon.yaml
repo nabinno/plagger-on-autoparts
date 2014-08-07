@@ -1,0 +1,28 @@
+include:
+  - ~/plagger/base.yaml
+
+
+
+plugins:
+  - module: CustomFeed::AmazonAssociateReportJP
+    config:
+      email:    XXX
+      password: base64::XXX
+
+  - module: Publish::Gmail
+    config:
+      mailto:   XXX+plagger_amazon@gmail.com
+      mailfrom: noreply@plagger.com
+      mailroute:
+#       via:      smtp_tls
+#       host:     smtp.gmail.com:587
+#       username: XXX@gmail.com
+#       password: base64::XXX
+        via:      smtp
+        host:     <domain>.sakura.ne.jp
+        username: XXX@<domain>.sakura.ne.jp
+        password: base64::XXX
+      pop3:
+        host:     <domain>.sakura.ne.jp
+        username: XXX@<domain>.sakura.ne.jp
+        password: base64::XXX

@@ -1,0 +1,148 @@
+package Plagger::Plugin::Publish::MixiComment;
+use strict;
+use base qw( Plagger::Plugin );
+
+use Encode;
+use WWW::Mechanize;
+
+sub register {
+    my($self, $context) = @_;
+
+    $context->register_hook(
+        $self,
+        'publish.entry' => \&update,
+        'plugin.init'   => \&initialize,
+    );
+}
+
+sub initialize {
+    my($self, $context, $args) = @_;
+    my $response;
+
+    $self->{sleeping_time} = $self->conf->{interval} || 3;
+
+    my $email = $self->conf->{email} || 'xxxx@example.com',
+    my $password = $self->conf->{password} || 'xxxx';
+
+    my $mech = WWW::Mechanize->new( autocheck => 1 );
+    my $response = $mech->get( 'http://mixi.jp/home.pl' );
+    # login
+    $context->log(info => "mixi login start");
+    $mech->form_number(1);
+    $mech->set_fields('email' => $self->conf->{email}, 'password' => $self->conf->{password});
+    Time::HiRes::sleep($self->{sleeping_time});
+    $response = $mech->submit;
+    $context->log(info => "mixi login success");
+
+    while ($response->header('refresh')) {
+        my $refresh = $response->header('refresh');
+        $context->log(info => "mixi refresh processing...");
+        if ($refresh =~ /url=([^\s;]+)/) {
+            Time::HiRes::sleep($self->{sleeping_time});
+            $response = $mech->get(URI->new($1, $mech->uri));
+            $refresh = $mech->uri;
+        } else {
+            Time::HiRes::sleep($self->{sleeping_time});
+            $response = $mech->reload;
+        }
+    }
+    
+    $self->{mech} = $mech;
+}
+
+sub print_content {
+    my ($context, $mech, $response) = @_;
+    
+    foreach my $form ($mech->forms) {
+        foreach my $input ($form->inputs) {
+            $context->log(info => $input->name . " " . $input->type . "=>" . $input->value);
+        }
+    }
+}
+
+sub update {
+    my($self, $context, $args) = @_;
+    my $response;
+    my $mech = $self->{mech};
+
+    $context->log(info => "mixi get_content: " . $args->{entry}->permalink);
+
+    Time::HiRes::sleep($self->{sleeping_time});
+    $response = $mech->get($args->{entry}->permalink);
+
+    my $msg = $args->{entry}->body;
+    Encode::from_to( $msg, "utf8", "eucjp" );
+
+    eval {
+        print_content($context, $mech, $response);
+        $context->log(info => "mixi post comment");
+        $mech->form_name('comment_form');
+        $mech->set_fields('comment_body' => $msg);
+        Time::HiRes::sleep($self->{sleeping_time});
+        $response = $mech->submit;
+        print_content($context, $mech, $response);
+        $context->log(info => "mixi submit comment");
+        $mech->form_number(2);
+        Time::HiRes::sleep($self->{sleeping_time});
+        $response = $mech->submit;
+    };
+}
+
+1;
+__END__
+
+=encoding utf-8
+
+=head1 NAME
+
+Plagger::Plugin::Publish::MixiComment - Post firend's diary comment with feeds
+
+=head1 NAME (ja)
+
+Plagger::Plugin::Publish::MixiComment - ミクシィにコメントをポストするプラグイン
+
+=head1 DISCLAIMER
+
+=head1 DISCLAIMER (ja)
+
+このモジュールを使用したことによる、利用者のいかなる損害・不利益等に関して作者は一切の責任を負わないものとします。
+
+=head1 SYNOPSIS
+
+  - module: Publish::MixiComment
+    config:
+      username: mixi-id
+      password: mixi-password
+
+=head1 DESCRIPTION
+
+=head1 DESCRIPTION (ja)
+
+permalinkの日記に対してbodyの内容をコメントとしてポストします。
+bodyの内容をFilterプラグインで内容を変更してください。
+
+=head1 CONFIG
+
+=over 4
+
+=item username
+
+mixi username. Required.
+
+=item password
+
+mixi password. Required.
+
+=item interval
+
+=back
+
+=head1 AUTHOR
+
+Yasuyuki Hashimoto
+
+=head1 SEE ALSO
+
+L<Plagger>, L<WWW::Mechanize>
+
+=cut

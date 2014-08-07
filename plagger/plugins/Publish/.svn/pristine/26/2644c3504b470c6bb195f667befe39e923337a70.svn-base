@@ -1,0 +1,90 @@
+package Plagger::Plugin::Publish::Slmame;
+use strict;
+use warnings;
+use base qw( Plagger::Plugin );
+
+use Encode;
+use WWW::Slmame;
+use Time::HiRes qw(sleep);
+
+sub register {
+    my($self,$context) = @_;
+    $context->register_hook(
+        $self,
+        'publish.entry' => \&publish_entry,
+        'plugin.init'   => \&initialize,
+    );
+}
+
+sub initialize {
+    my($self, $context, $args) = @_;
+    my %opt = (
+        id      => $self->conf->{id},
+        pass    => $self->conf->{pass},
+        blog    => $self->conf->{blog},
+    );
+    $self->{slmame} = WWW::Slmame->new(%opt);
+}
+
+sub publish_entry {
+    my($self, $context, $args) = @_;
+    $context->log(info => "updating slmame blog");
+    $self->{slmame}->blog_select();
+    my $hashref = {
+        title   => $args->{entry}->title,
+        message => $args->{entry}->message
+    };
+    $self->{slmame}->update($hashref);
+    my $sleeping_time = $self->conf->{interval} || 10;
+    $context->log(info => "sleep $sleeping_time.");
+    sleep($sleeping_time);
+}
+
+1;
+__END__
+
+=head1 NAME
+
+Plagger::Plugin::Publish::Slmame - Update your slmame blog with feeds.
+
+=head1 SYNOPSIS
+
+  - module: Publish::Slmame
+    config:
+      id: Slmame id
+      pass: Slmame pass
+      blog: Slmame blog index
+
+=head1 DESCRIPTION
+
+This plugin sends feed entries summary to your Slmame blog.
+
+=head1 CONFIG 
+
+=over 4
+
+=item id
+
+Slmame blog id. Required.
+
+=item pass
+
+Slmame blog pass. Required.
+
+=item blog
+
+Slmame blog index. Required.
+
+=item interval
+
+=back
+
+=head1 AUTHOR
+
+Soshi Tamura  C<< <st.hao.yayoi@gmail.com> >>
+
+=head1 SEE ALSO
+
+L<Plagger>, L<WWW::Slmame>
+
+=cut

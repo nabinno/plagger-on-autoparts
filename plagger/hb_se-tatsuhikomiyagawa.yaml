@@ -1,0 +1,69 @@
+global:
+  plugin_path:
+    - /home/805/plagger/plugin
+  assets_path: /home/805/plagger/assets
+  timezone: Asia/Tokyo
+  log:
+    level: info    # debug
+    # level: error
+  cache:
+    base: /home/805/plagger
+
+
+plugins:
+  - module: Cache
+    config:
+      file: /home/805/plagger/cache
+      diff_mode: 1
+  - module: Subscription::Config
+    config:
+      feed:
+        - url: http://b.hatena.ne.jp/search/text?safe=off&q=%E5%AE%AE%E5%B7%9D%E9%81%94%E5%BD%A6&mode=rss
+        - url: http://b.hatena.ne.jp/search/text?safe=off&q=%22Tatsuhiko+Miyagawa%22&mode=rss
+  - module: Filter::TruePermalink
+
+  - module: Filter::Rule
+    rule:
+      - expression: $args->{entry}->{date} = undef; 1
+      - module: Deduped
+        path: /home/805/plagger/Deduped.db
+
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+      - expression: $args->{entry}->link !~ /http:\/\/\/.*/
+
+      # - expression: $arg->{entry}->title !~ /^(hogehoge|kunekune).*/
+
+  # - module: Filter::HatenaBookmarkTag
+  - module: Filter::RemoveTags
+  - module: Filter::AddTags
+    config:
+      tags:
+        - tatsuhiko-miyagawa
+        - software-engineering
+        - unread
+  # - module: Filter::EntryFullText
+  #   config:
+  #     store_html_on_failure: 1
+  - module: Filter::BreakEntriesToFeeds
+    config:
+      use_entry_title: 1
+  - module: Publish::HatenaBookmark
+    rule:
+      expression: not $args->{entry}->has_tag('toread')
+    config:
+      username: i65c
+      password: base64::cXFoOWxlOXo2Mw==
+      interval: 4
+      post_body: 0
+

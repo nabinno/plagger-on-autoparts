@@ -1,0 +1,55 @@
+global:
+  plugin_path:
+    - ~/local/lib/perl5/Plagger/Plugin
+  assets_path: ~/plagger/assets
+  timezone: Asia/Tokyo
+  log:
+    level: info    # debug
+  cache:
+    base: ~/plagger
+
+
+plugins:
+  - module: Cache
+    config:
+      file: ~/plagger/cache
+      diff_mode: 1
+  - module: Subscription::Config
+    config:
+      feed:
+      - url: http://del.icio.us/rss/seacolor
+  - module: Filter::Rule
+    rule:
+      module: Deduped
+      path: ~/plagger/cache_rule/delicious2hateb.tmp
+      compare_body: 1
+  - module: Filter::Reverse
+  - module: Filter::DeliciousFeedTags
+  - module: Publish::HatenaBookmark
+    rule:
+      expression: not $args->{entry}->has_tag('toread')
+    config:
+      username: (your account)
+      password: (your password)
+      interval: 8
+      post_body: 1
+
+
+define_recipes:
+  publish:
+    - module: Search::Rast
+      config:
+        encode: euc_jp
+        replace: 1
+        dir: ~/plagger/rast
+    - module: Publish::Gmail
+      rule:
+        - module: Rating
+          rate: '>= 0'
+      config:
+        mailto: g8fgkv@gmail.com
+        mailfrom: g8fgkv@gmail.com
+        mailroute:
+          via: smtp
+          host: localhost
+

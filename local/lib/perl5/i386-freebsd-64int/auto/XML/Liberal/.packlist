@@ -1,0 +1,16 @@
+/home/sgkk/local/lib/perl5/XML/Liberal.pm
+/home/sgkk/local/lib/perl5/XML/Liberal/LibXML.pm
+/home/sgkk/local/lib/perl5/XML/Liberal/Remedy.pm
+/home/sgkk/local/lib/perl5/XML/Liberal/Remedy/ControlCode.pm
+/home/sgkk/local/lib/perl5/XML/Liberal/Remedy/Declaration.pm
+/home/sgkk/local/lib/perl5/XML/Liberal/Remedy/DeprecatedDTD.pm
+/home/sgkk/local/lib/perl5/XML/Liberal/Remedy/EntityRef.pm
+/home/sgkk/local/lib/perl5/XML/Liberal/Remedy/HTMLEntity.pm
+/home/sgkk/local/lib/perl5/XML/Liberal/Remedy/InvalidEncoding.pm
+/home/sgkk/local/lib/perl5/XML/Liberal/Remedy/LowAsciiChars.pm
+/home/sgkk/local/lib/perl5/XML/Liberal/Remedy/NotUTF8.pm
+/home/sgkk/local/lib/perl5/XML/Liberal/Remedy/StandaloneAttribute.pm
+/home/sgkk/local/lib/perl5/XML/Liberal/Remedy/UndeclaredNS.pm
+/home/sgkk/local/lib/perl5/XML/Liberal/Remedy/UnquotedAttribute.pm
+/home/sgkk/local/lib/perl5/XML/Liberal/Remedy/XHTMLEmptyTag.pm
+/home/sgkk/local/man/man3/XML::Liberal.3

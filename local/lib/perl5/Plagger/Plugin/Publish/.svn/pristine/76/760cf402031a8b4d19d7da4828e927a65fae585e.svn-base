@@ -1,0 +1,138 @@
+package Plagger::Plugin::Publish::NiftyClip;
+use strict;
+use base qw( Plagger::Plugin );
+
+use Encode;
+use Time::HiRes qw(sleep);
+use Plagger::Mechanize;
+
+sub register {
+    my($self, $context) = @_;
+    $context->register_hook(
+        $self,
+        'publish.entry' => \&add_entry,
+        'publish.init'  => \&initialize,
+    );
+}
+
+sub initialize {
+    my $self = shift;
+    unless ($self->{mech}) {
+        my $mech = Plagger::Mechanize->new;
+        $mech->agent_alias('Windows IE 6');
+        $mech->quiet(1);
+        $self->{mech} = $mech;
+    }
+    $self->login_nifty_clip;
+}
+
+
+sub add_entry {
+    my ($self, $context, $args) = @_;
+
+    my @tags = @{$args->{entry}->tags};
+    my $tag_string = @tags ? join(' ', @tags) : '';
+
+    my $summary;
+    if ($self->conf->{post_body}) {
+        $summary = encode('utf-8', $args->{entry}->body_text); # xxx should be summary
+    }
+
+    my $res = eval { $self->{mech}->get('http://clip.nifty.com/create') };
+    if ($res && $res->is_success) {
+        eval {
+            $self->{mech}->submit_form(
+                form_name => 'savingForm',
+                fields => {
+                    title       => $args->{entry}->title,
+                    url         => encode('utf-8', $args->{entry}->link),
+                    comment     => $summary,
+                    suggesttags => $tag_string,
+                    public_flag => ($self->conf->{default_public} ? 'on' : 'off'),
+                }
+            )
+        };
+        if ($@) {
+            $context->log(info => "can't submit: " . $@);
+        } else {
+            $context->log(info => "Post entry success.");
+        }
+    } else {
+       $context->log(error => "fail to bookmark HTTP Status: " . $res->code);
+    }
+ 
+    my $sleeping_time = $self->conf->{interval} || 3;
+    $context->log(info => "sleep $sleeping_time.");
+    sleep( $sleeping_time );
+}
+
+sub login_nifty_clip {
+    my $self = shift;
+    unless ($self->conf->{username} && $self->conf->{password}) {
+        Plagger->context->log(error => 'set your username and password before login.');
+    }
+    my $res = $self->{mech}->get('https://clip.nifty.com/login');
+    $self->{mech}->submit_form(
+        form_name => 'login-form',
+        fields => {
+            username => $self->conf->{username},
+            password => $self->conf->{password},
+        },
+    );
+}
+
+1;
+
+__END__
+
+=head1 NAME
+
+Plagger::Plugin::Publish::NiftyClip - Post to nifty clip automatically
+
+=head1 SYNOPSIS
+
+  - module: Publish::NiftyClip
+    config:
+      username: your-username
+      password: your-password
+      interval: 2
+      post_body: 1
+      default_public: 1
+
+=head1 DESCRIPTION
+
+This plugin automatically posts feed updates to nifty clip
+L<http://clip.nifty.com/>. It supports automatic tagging as well. It
+might be handy for synchronizing delicious feeds into nifty clip.
+
+=head1 CONFIG
+
+=over 4
+
+=item username, password
+
+username and password for Nifty Clip. Required.
+
+=item default_public
+
+Optional. default publish operation value is '1' as publish.
+
+=item interval
+
+Optional.
+
+=item timeout
+
+Optional.
+
+=back
+
+=head1 AUTHOR
+
+Yasuhiro Matsumoto
+
+=head1 SEE ALSO
+
+L<Plagger>, L<Plagger::Plugin::Publish::LivedoorClip>, L<Plagger::Mechanize>
+
+=cut

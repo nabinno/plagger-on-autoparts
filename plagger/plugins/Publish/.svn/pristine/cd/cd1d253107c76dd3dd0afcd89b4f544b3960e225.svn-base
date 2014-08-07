@@ -1,0 +1,99 @@
+package Plagger::Plugin::Publish::MixiDiary;
+use strict;
+use base qw( Plagger::Plugin );
+
+use Encode;
+use Atompub::Client;
+use XML::Atom::Entry;
+use Time::HiRes qw(sleep);
+
+sub register {
+    my($self, $context) = @_;
+    $context->register_hook(
+        $self,
+        'publish.entry' => \&publish_entry,
+        'plugin.init'   => \&initialize,
+    );
+}
+
+sub initialize {
+    my($self, $context) = @_;
+    unless ($self->{client}) {
+        my $client = Atompub::Client->new;
+        $client->username($self->conf->{username});
+        $client->password($self->conf->{password});
+        my $service = $client->getService('http://mixi.jp/atom/diary/');
+        my @workspaces = $service->workspaces;
+        my @collections = $workspaces[0]->collections;
+        $self->{client} = $client;
+        $self->{PostURI} = $collections[0]->href;
+    }
+    1;
+}
+
+sub publish_entry {
+    my($self, $context, $args) = @_;
+
+    $context->log(info => "updating mixi diary");
+
+    my $entry = XML::Atom::Entry->new;
+    $entry->title( encode_utf8( $args->{entry}->title ) );
+
+    my $link  = XML::Atom::Link->new;
+    $link->rel('related');
+    $link->type('text/html');
+    $link->href($args->{entry}->link);
+    $entry->add_link($link);
+    $entry->summary( encode_utf8( $args->{entry}->body_text ) );
+
+    $self->{client}->createEntry($self->{PostURI}, $entry)
+	    or $context->log(info => "can't submit: " . $self->{client}->errstr);
+
+    my $sleeping_time = $self->conf->{interval} || 3;
+    $context->log(info => "sleep $sleeping_time.");
+    sleep( $sleeping_time );
+}
+
+1;
+__END__
+
+=head1 NAME
+
+Plagger::Plugin::Publish::MixiDiary - Update your mixi diary with feeds
+
+=head1 SYNOPSIS
+
+  - module: Publish::MixiDiary
+    config:
+      username: mixi-id
+      password: mixi-password
+
+=head1 DESCRIPTION
+
+This plugin sends feed entries summary to your mixi diary.
+
+=head1 CONFIG
+
+=over 4
+
+=item username
+
+mixi username. Required.
+
+=item password
+
+mixi password. Required.
+
+=item interval
+
+=back
+
+=head1 AUTHOR
+
+Yasuhiro Matsumoto
+
+=head1 SEE ALSO
+
+L<Plagger>, L<Atompub::Client>, L<XML::Atom::Entry>
+
+=cut

@@ -1,0 +1,1 @@
+../lib/node_modules/coffee-script/bin/cake

@@ -1,0 +1,3 @@
+author: Nab Inno
+match: http://www\.asahi\.com/
+rewrite: s!\?tr=pc!!

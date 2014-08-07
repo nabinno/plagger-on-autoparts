@@ -1,0 +1,8 @@
+author: Nab Inno
+match: http://\w+\.2ch\.net/.*?\d+/
+rewrite: |
+  if ($args->{entry}->body =~ m!<a href="http://ime.nu/(.*?)" target="_blank">!) {
+      $_ = "http://" . $1;
+      $args->{entry}->link($_);
+      return 1;
+  }

@@ -1,0 +1,117 @@
+package Plagger::Plugin::Publish::FC2Bookmark;
+use strict;
+use base qw( Plagger::Plugin );
+
+use Encode;
+use Time::HiRes qw(sleep);
+use URI;
+use Plagger::Mechanize;
+
+sub register {
+    my($self, $context) = @_;
+    $context->register_hook(
+        $self,
+        'publish.entry' => \&add_entry,
+        'publish.init'  => \&initialize,
+    );
+}
+
+sub initialize {
+    my $self = shift;
+    unless ($self->{mech}) {
+        my $mech = Plagger::Mechanize->new;
+        $mech->agent_alias('Windows IE 6');
+        $mech->quiet(1);
+        $self->{mech} = $mech;
+    }
+    $self->login_fc2bookmark;
+}
+
+
+sub add_entry {
+    my ($self, $context, $args) = @_;
+
+    my @tags = @{$args->{entry}->tags};
+    my $tag_string = @tags ? join(' ', @tags) : '';
+
+    my $summary;
+    if ($self->conf->{post_body}) {
+        $summary = encode('utf-8', $args->{entry}->body_text); # xxx should be summary
+    }
+
+    my $res = eval { $self->{mech}->get('http://bookmark.fc2.com/user/post') };
+    if ($res && $res->is_success) {
+        eval {
+            $self->{mech}->submit_form(
+                form_number => 2,
+                fields => {
+                    "data[Bookmark][title]"        => encode('utf-8', $args->{entry}->title),
+                    "data[Bookmark][url]"          => $args->{entry}->link,
+                    "data[Bookmark][description]"  => $summary,
+                    "data[Bookmark][tag_txt]"      => encode('utf-8', $tag_string),
+                    "data[Bookmark][allow_access]" => "1",
+                    "data[Bookmark][favorite]"     => "0",
+                }
+            )
+        };
+        if ($@) {
+           $context->log(info => "can't submit: " . $args->{entry}->link);
+        } else {
+            $context->log(info => "Post entry success.");
+        }
+    } else {
+       $context->log(info => "fail to bookmark HTTP Status: " . $res->code);
+    }
+ 
+    my $sleeping_time = $self->conf->{interval} || 3;
+    $context->log(info => "sleep $sleeping_time.");
+    sleep( $sleeping_time );
+}
+
+sub login_fc2bookmark {
+    my $self = shift;
+    unless ($self->conf->{usermail} && $self->conf->{password}) {
+        Plagger->context->log(error => 'set your usermail and password before login.');
+    }
+    my $res = $self->{mech}->get('http://bookmark.fc2.com/');
+    $self->{mech}->submit_form(
+        form_number => 2,
+        fields => {
+            email => $self->conf->{usermail},
+            pass  => $self->conf->{password},
+        },
+    );
+}
+
+1;
+
+__END__
+
+=head1 NAME
+
+Plagger::Plugin::Publish::FC2Bookmark - Post to fc2bookmark automatically
+
+=head1 SYNOPSIS
+
+  - module: Publish::FC2Bookmark
+    config:
+      usermail: your-e-mail
+      password: your-password
+      interval: 2
+      post_body: 1
+
+=head1 DESCRIPTION
+
+This plugin automatically posts feed updates to fc2bookmark
+L<http://bookmark.fc2.com/>. It supports automatic tagging as well. It
+might be handy for synchronizing delicious feeds into fc2bookmark.
+
+=head1 AUTHOR
+
+Yasuhiro Matsumoto
+
+=head1 SEE ALSO
+
+L<Plagger>, L<Plagger::Plugin::Publish::LivedoorClip>, L<Plagger::Mechanize>
+
+=cut

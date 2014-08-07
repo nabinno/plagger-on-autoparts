@@ -1,0 +1,5 @@
+# http://www.reddit.co.jp/r/
+author: Nab Inno
+match: http://www\.reddit\.com/r/.*
+extract: <title>(.*?)></title>.*(<p class="title">.*?</p>)
+extract_capture: title body

@@ -1,0 +1,3 @@
+author: Nab Inno
+match: http://www\.quora\.com/
+rewrite: s!\?tr=pc!!

@@ -1,0 +1,15 @@
+/home/sgkk/local/lib/perl5/ExtUtils/CBuilder.pm
+/home/sgkk/local/lib/perl5/ExtUtils/CBuilder/Base.pm
+/home/sgkk/local/lib/perl5/ExtUtils/CBuilder/Platform/Unix.pm
+/home/sgkk/local/lib/perl5/ExtUtils/CBuilder/Platform/VMS.pm
+/home/sgkk/local/lib/perl5/ExtUtils/CBuilder/Platform/Windows.pm
+/home/sgkk/local/lib/perl5/ExtUtils/CBuilder/Platform/Windows/BCC.pm
+/home/sgkk/local/lib/perl5/ExtUtils/CBuilder/Platform/Windows/GCC.pm
+/home/sgkk/local/lib/perl5/ExtUtils/CBuilder/Platform/Windows/MSVC.pm
+/home/sgkk/local/lib/perl5/ExtUtils/CBuilder/Platform/aix.pm
+/home/sgkk/local/lib/perl5/ExtUtils/CBuilder/Platform/cygwin.pm
+/home/sgkk/local/lib/perl5/ExtUtils/CBuilder/Platform/darwin.pm
+/home/sgkk/local/lib/perl5/ExtUtils/CBuilder/Platform/dec_osf.pm
+/home/sgkk/local/lib/perl5/ExtUtils/CBuilder/Platform/os2.pm
+/home/sgkk/local/man/man3/ExtUtils::CBuilder.3
+/home/sgkk/local/man/man3/ExtUtils::CBuilder::Platform::Windows.3
