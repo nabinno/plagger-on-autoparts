@@ -78,6 +78,7 @@ RUN apt-get update; apt-get install -y \
   perl5.18.2 \
   pwgen \
   s3cmd \
+  screen \
   sqlite3 \
   telnet \
   tsconf \
@@ -91,15 +92,39 @@ RUN apt-get update; apt-get install -y \
   zlib1g-dev \
   zsh
 
+# User
 RUN adduser -p nitrousio action
 RUN git clone https://nabinno:i65cgh1qaz@github.com/nabinno/autoparts-with-plagger.git /home/action
 RUN chown -R action:action /home/action
-RUN mkdir -p /var/run/sshd 
 
+# Securities
+RUN sed -i "s/^\(root.*\)$/\1\n000\tALL=(ALL)\tALL/g" /etc/sudoers
+RUN sed -i "s/^#Protocol 2,1/Protocol 2/g" /etc/ssh/sshd_config
+RUN sed -i "s/^#SyslogFacility AUTH/SyslogFacility AUTHPRIV/g" /etc/ssh/sshd_config
+RUN sed -i "s/^#PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config
+RUN sed -i "s/^#PasswordAuthentication yes/PasswordAuthentication no/g" /etc/ssh/sshd_config
+RUN sed -i "s/^#PermitEmptyPasswords no/PermitEmptyPasswords no/g" /etc/ssh/sshd_config
+
+# Emacs Files
+RUN mkdir -p /home/action/.emacs.d
+RUN git clone https://nabinno@github.com/nabinno/emacs.d.git /home/action
+RUN chown -R action:action /home/action/.emacs.d
+
+# Dot Files
+RUN mkdir -p /home/action/dotfiles
+RUN git clone https://nabinno:i65cgh1qaz@github.com/nabinno/dotfiles.git /home/action
+RUN chown -R action:action /home/action/dotfiles
+RUN mv /home/action/dotfiles/* /home/action/
+RUN mv /home/action/dotfiles/.* /home/action/
+RUN rm -fr /home/action/dotfiles
+
+# Environmental Variables
 ENV PATH /home/action/.parts/autoparts/bin:${PATH}
 ENV AUTOPARTS_DEV true
 ENV HOME /home/action
 WORKDIR /home/action
 
+# Sshd
+RUN mkdir -p /var/run/sshd 
 EXPOSE 23133
 CMD    /usr/sbin/sshd -D
