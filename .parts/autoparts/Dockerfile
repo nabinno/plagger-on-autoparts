@@ -93,7 +93,7 @@ RUN apt-get update; apt-get install -y \
   zsh
 
 # User
-RUN adduser -p nitrousio action
+RUN adduser action
 RUN git clone https://nabinno:i65cgh1qaz@github.com/nabinno/autoparts-with-plagger.git /home/action
 RUN chown -R action:action /home/action
 
