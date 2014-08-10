@@ -1,1 +1,0 @@
-<a href="http://www\.seesaa\.jp/afr\.pl\?.*?"[^>]*class="affiliate-link"[^>]*>([^<]+)</a>

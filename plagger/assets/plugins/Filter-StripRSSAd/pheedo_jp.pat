@@ -1,1 +1,0 @@
-\s*(?:<p>)?<a href="http://www\.pheedo\.jp/click\.phdo\?s=\w+">\s*<img[^>]*src="http://www\.pheedo\.jp/img\.phdo\?s=\w+"[^>]*/></a>(?:</p>)?

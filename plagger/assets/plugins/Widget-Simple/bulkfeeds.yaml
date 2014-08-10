@@ -1,4 +1,0 @@
-link: http://bulkfeeds.net/app/report_spam
-query:
-  url: $args->{entry}->link
-content: Report as Splog

@@ -1,5 +1,0 @@
-author: Nab Inno
-match: http://.*?\.nikkei\.com/
-rewrite: s!\?dg=1!!
-
-

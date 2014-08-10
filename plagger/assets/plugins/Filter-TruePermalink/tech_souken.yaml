@@ -1,9 +1,0 @@
-author: youpy
-match: rikunabi\-next\.yahoo\.co\.jp
-rewrite: |
-  s/;jsessionid=\w+//;
-  s/(&|\?)__m=\d+//;
-  s/(&|\?)f=\w+//;
-  s/(&|\?)vos=\w+//;
-  s/(&|\?)Try=\w+//;
-

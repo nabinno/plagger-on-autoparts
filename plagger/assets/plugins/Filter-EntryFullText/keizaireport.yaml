@@ -1,5 +1,0 @@
-# http://www3.keizaireport.com/
-author: Nab Inno
-match: http://www3\.keizaireport\.com/.*
-extract: <H1><a href="(.*?)".*?>(.*?)</a></H1>
-extract_capture: body title

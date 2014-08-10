@@ -1,3 +1,0 @@
-author: Nab Inno
-match: http://www\.cnn\.co\.jp/
-rewrite: s!\?.*!!

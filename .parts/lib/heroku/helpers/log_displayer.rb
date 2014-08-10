@@ -1,1 +1,0 @@
-/home/action/.parts/packages/heroku_toolbelt/3.5.0/lib/heroku/helpers/log_displayer.rb

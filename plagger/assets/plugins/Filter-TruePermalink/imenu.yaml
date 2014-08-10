@@ -1,5 +1,0 @@
-author: Tatsuhiko Miyagawa
-match: http://ime\.(nu|st)/
-rewrite: s!http://ime\.(nu|st)/!http://!
-
-

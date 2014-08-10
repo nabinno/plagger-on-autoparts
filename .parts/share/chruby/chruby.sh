@@ -1,1 +1,0 @@
-/home/action/.parts/packages/chruby/0.3.8/share/chruby/chruby.sh

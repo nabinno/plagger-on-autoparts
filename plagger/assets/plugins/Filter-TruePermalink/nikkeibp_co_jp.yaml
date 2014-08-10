@@ -1,3 +1,0 @@
-author: Nab Inno
-match: http://.*?\.nikkeibp\.co\.jp/
-rewrite: s!\?dg=1!!

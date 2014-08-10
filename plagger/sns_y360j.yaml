@@ -1,7 +1,0 @@
-include:
-  - ~/plagger/base.yaml
-  - ~/plagger/sns.yaml
-
-recipes:
-  - y360j
-  - publish

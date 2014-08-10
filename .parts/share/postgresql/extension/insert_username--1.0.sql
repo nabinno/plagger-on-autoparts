@@ -1,1 +1,0 @@
-/home/action/.parts/packages/postgresql/9.2.4/share/postgresql/extension/insert_username--1.0.sql

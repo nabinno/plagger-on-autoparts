@@ -1,3 +1,0 @@
-author: Nab Inno
-match: http://www\.abc\.net\.au/
-rewrite: s!\?.*!!
