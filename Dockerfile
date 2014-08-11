@@ -19,7 +19,7 @@ RUN git clone https://github.com/tagomoris/xbuild.git ~/.parts/autoparts/bin/xbu
 
 # autoparts/xbuild/perl
 RUN mkdir ~/local
-RUN xbuild/perl-install 5.18.2 ~/local/perl-5.18
+RUN ~/.parts/autoparts/bin/xbuild/perl-install 5.18.2 ~/local/perl-5.18
 # RUN curl -s https://raw.githubusercontent.com/tokuhirom/Perl-Build/master/perl-build > /usr/bin/perl-build
 # RUN perl -pi -e 's%^#!/usr/bin/env perl%#!/usr/bin/perl%g' /usr/bin/perl-build
 # RUN chmod +x /usr/bin/perl-build
