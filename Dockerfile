@@ -15,7 +15,7 @@ RUN parts install heroku_toolbelt
 
 # autoparts/xbuild
 
-RUN git clone https://github.com/tagomoris/xbuild.git ~/.parts/autoparts/bin/
+RUN git clone https://github.com/tagomoris/xbuild.git ~/.parts/autoparts/bin/xbuild
 
 # autoparts/xbuild/perl
 RUN mkdir ~/local
