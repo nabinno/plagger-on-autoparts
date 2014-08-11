@@ -11,8 +11,7 @@ INDEX
 ---------------
 ### servers
 - centos = CentOS 6 x86_64
-- railsubuntu = Ubuntu 12.04 for Rail4 on CentOS 6 x86_64
-- plaggerubuntu = Ubuntu 12.04 for Plagger on CentOS 6 x86_64
+- plaggeronubuntu = Ubuntu 12.04 for Plagger on CentOS 6 x86_64
 - client = Client PC
 
 ### scripts
@@ -81,17 +80,17 @@ foo@centos% docker inspect --format {{.NetworkSettings.Ports}} $(docker ps -l -q
 
 ### change password of ubuntu user
 client# ssh-keygen -t rsa
-client# ssh-copy-id -i ~/.ssh/id_rsa.pub action@railsonubuntu -p port-railsonubuntu
-client# mv ~/.ssh/id_rsa ~/.ssh/id_rsa_action@railsonubuntu
-client# ssh -t action@railsonubuntu(centos.host) zsh -p port-railsonubuntu
+client# ssh-copy-id -i ~/.ssh/id_rsa.pub action@plaggeronubuntu -p port-plaggeronubuntu
+client# mv ~/.ssh/id_rsa ~/.ssh/id_rsa_action@plaggeronubuntu
+client# ssh -t action@plaggeronubuntu(centos.host) zsh -p port-plaggeronubuntu
 foo@centos% docker commit $(docker ps -l -q) container_id
-foo@centos% docker run -i -t nabinno/rails-on-autoparts zsh
-root@railsonubuntu# sed -i "s/^\(#PasswordAuthentication yes\)/\1\nPasswordAuthentication no/g" /etc/ssh/sshd_config
-root@railsonubuntu# echo 'action:baz' | chpasswd
-root@railsonubuntu# /etc/init.d/ssh restart
+foo@centos% docker run -i -t nabinno/plagger-on-autoparts zsh
+root@plaggeronubuntu# sed -i "s/^\(#PasswordAuthentication yes\)/\1\nPasswordAuthentication no/g" /etc/ssh/sshd_config
+root@plaggeronubuntu# echo 'action:baz' | chpasswd
+root@plaggeronubuntu# /etc/init.d/ssh restart
 foo@centos% docker commit $(docker ps -l -q) container_id
-foo@centos% docker run -t -d -P nabinno/rails-on-autoparts /usr/sbin/sshd -D
-client# ssh -t action@railsonubuntu zsh -p port-railsonubuntu
+foo@centos% docker run -t -d -P nabinno/plagger-on-autoparts /usr/sbin/sshd -D
+client# ssh -t action@plaggeronubuntu zsh -p port-plaggeronubuntu
 ```
 
 
