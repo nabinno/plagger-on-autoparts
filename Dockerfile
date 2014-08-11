@@ -27,26 +27,24 @@ RUN ~/.parts/autoparts/bin/xbuild/perl-install 5.18.2 ~/local/perl-5.18
 # autoparts/xbuild/perl/plagger
 RUN export PATH=$HOME/local/perl-5.18/bin:$PATH
 # RUN cpanm -Lextlib -n --installdeps ~/
-RUN yes | cpan \
-    YAML::Loader \
-    XML::LibXML \
-    XML::LibXML::SAX \
-    XML::LibXML::XPathContext \
-    XML::Liberal \
-    Text::Glob \
-    Module::Runtime \
-    Params::Util \
-    Digest::SHA1
-RUN yes | cpan -fi \
-    Class::Load \
-    XML::RSS \
-    XML::RSS::LibXML \
-    XML::RSS::Liberal \
-    XML::Feed \
-    XML::Feed::RSS \
-    XML::Atom \
-    WebService::Bloglines \
-    Plagger
+RUN yes | cpan YAML::Loader
+RUN yes | cpan XML::LibXML
+RUN yes | cpan XML::LibXML::SAX
+RUN yes | cpan XML::LibXML::XPathContext
+RUN yes | cpan XML::Liberal
+RUN yes | cpan Text::Glob
+RUN yes | cpan Module::Runtime
+RUN yes | cpan Params::Util
+RUN yes | cpan Digest::SHA1
+RUN yes | cpan -fi Class::Load
+RUN yes | cpan -fi XML::RSS
+RUN yes | cpan -fi XML::RSS::LibXML
+RUN yes | cpan -fi XML::RSS::Liberal
+RUN yes | cpan -fi XML::Feed
+RUN yes | cpan -fi XML::Feed::RSS
+RUN yes | cpan -fi XML::Atom
+RUN yes | cpan -fi WebService::Bloglines
+RUN yes | cpan -fi Plagger
 
 # dot files
 RUN git clone https://github.com/nabinno/dot-files.git
