@@ -67,14 +67,14 @@ foo@centos% sudo /etc/init.d/sshd restart
 ```sh
 ### build
 foo@centos% docker build -t nitrousio/autoparts-builder https://raw.githubusercontent.com/nitrous-io/autoparts/master/Dockerfile
-docker build -t nabinno/plagger-on-autoparts https://raw.githubusercontent.com/nabinno/plagger-on-autoparts/master/Dockerfile
+foo@centos% docker build -t nabinno/plagger-on-autoparts https://raw.githubusercontent.com/nabinno/plagger-on-autoparts/master/Dockerfile
 
 ### start sshd server
-docker run -t -d -P nabinno/plagger-on-autoparts
+foo@centos% docker run -t -d -P nabinno/plagger-on-autoparts /usr/sbin/sshd -D
 
 ### get port
-docker inspect --format {{.NetworkSettings.IPAddress}} $(docker ps -l -q)
-docker inspect --format {{.NetworkSettings.Ports}} $(docker ps -l -q)
+foo@centos% docker inspect --format {{.NetworkSettings.IPAddress}} $(docker ps -l -q)
+foo@centos% docker inspect --format {{.NetworkSettings.Ports}} $(docker ps -l -q)
 
 ### change password of ubuntu user
 client# ssh-keygen -t rsa

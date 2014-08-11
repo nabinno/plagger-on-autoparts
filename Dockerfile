@@ -14,7 +14,8 @@ RUN apt-get update; apt-get install -y \
 RUN parts install heroku_toolbelt
 
 # autoparts/xbuild
-RUN git clone https://github.com/tagomoris/xbuild.git ~/.parts/bin
+
+RUN git clone https://github.com/tagomoris/xbuild.git ~/.parts/autoparts/bin/
 
 # autoparts/xbuild/perl
 RUN mkdir ~/local
