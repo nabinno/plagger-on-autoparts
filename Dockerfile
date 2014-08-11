@@ -25,34 +25,34 @@ RUN ~/.parts/autoparts/bin/xbuild/perl-install 5.18.2 ~/local/perl-5.18
 # RUN chmod +x /usr/bin/perl-build
 
 # autoparts/xbuild/perl/plagger
-RUN export PATH=$HOME/local/perl-5.18/bin:$PATH
 # RUN cpanm -Lextlib -n --installdeps ~/
-RUN yes | cpan YAML::Loader
-RUN yes | cpan XML::LibXML
-RUN yes | cpan XML::LibXML::SAX
-RUN yes | cpan XML::LibXML::XPathContext
-RUN yes | cpan XML::Liberal
-RUN yes | cpan Text::Glob
-RUN yes | cpan Module::Runtime
-RUN yes | cpan Params::Util
-RUN yes | cpan Digest::SHA1
-RUN yes | cpan -fi Class::Load
-RUN yes | cpan -fi XML::RSS
-RUN yes | cpan -fi XML::RSS::LibXML
-RUN yes | cpan -fi XML::RSS::Liberal
-RUN yes | cpan -fi XML::Feed
-RUN yes | cpan -fi XML::Feed::RSS
-RUN yes | cpan -fi XML::Atom
-RUN yes | cpan -fi WebService::Bloglines
-RUN yes | cpan -fi Plagger
+RUN yes | ~/local/perl-5.18/bin/cpanm \
+    YAML::Loader \
+    XML::LibXML \
+    XML::LibXML::SAX \
+    XML::LibXML::XPathContext \
+    XML::Liberal \
+    Text::Glob \
+    Module::Runtime \
+    Params::Util \
+    Digest::SHA1
+RUN yes | ~/local/perl-5.18/bin/cpanm -fi \
+    Class::Load \
+    XML::RSS \
+    XML::RSS::LibXML \
+    XML::RSS::Liberal \
+    XML::Feed \
+    XML::Feed::RSS \
+    XML::Atom \
+    WebService::Bloglines \
+    Plagger
 
 # dot files
 RUN git clone https://github.com/nabinno/dot-files.git
-RUN find ~/dotfiles -maxdepth 1 -mindepth 1 | xargs -i mv -f {} ~/
-RUN rm -fr dotfiles .git README.md
+RUN find ~/dot-files -maxdepth 1 -mindepth 1 | xargs -i mv -f {} ~/
+RUN rm -fr dot-files .git README.md
 
 # environmental variables
-RUN sed -i "s/^\(root.*\)$/\1\naction\tALL=(ALL)\tALL/g" /etc/sudoers
 RUN sed -i "s/^#Protocol 2,1/Protocol 2/g" /etc/ssh/sshd_config
 RUN sed -i "s/^#SyslogFacility AUTH/SyslogFacility AUTH/g" /etc/ssh/sshd_config
 RUN sed -i "s/^\(PermitRootLogin yes\)/#\1\nPermitRootLogin without-password/g" /etc/ssh/sshd_config

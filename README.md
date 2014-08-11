@@ -65,7 +65,10 @@ foo@centos% sudo /etc/init.d/sshd restart
 3. Set-up Plagger on Autoparts/Ubuntu 12.04
 -------------------------------------------
 ```sh
+
 ### build
+# foo@centos% sudo sysctl overcommit_memory=1    # A/N
+# foo@centos% sudo sysctl overcommit_ratio=75    # A/N
 foo@centos% docker build -t nitrousio/autoparts-builder https://raw.githubusercontent.com/nitrous-io/autoparts/master/Dockerfile
 foo@centos% docker build -t nabinno/plagger-on-autoparts https://raw.githubusercontent.com/nabinno/plagger-on-autoparts/master/Dockerfile
 
@@ -84,7 +87,9 @@ client# ssh -t action@railsonubuntu(centos.host) zsh -p port-railsonubuntu
 foo@centos% docker commit $(docker ps -l -q) container_id
 foo@centos% docker run -i -t nabinno/rails-on-autoparts zsh
 root@railsonubuntu# sed -i "s/^\(#PasswordAuthentication yes\)/\1\nPasswordAuthentication no/g" /etc/ssh/sshd_config
+root@railsonubuntu# echo 'action:baz' | chpasswd
 root@railsonubuntu# /etc/init.d/ssh restart
+foo@centos% docker commit $(docker ps -l -q) container_id
 foo@centos% docker run -t -d -P nabinno/rails-on-autoparts /usr/sbin/sshd -D
 client# ssh -t action@railsonubuntu zsh -p port-railsonubuntu
 ```
