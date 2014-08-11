@@ -26,7 +26,7 @@ RUN ~/.parts/autoparts/bin/xbuild/perl-install 5.18.2 ~/local/perl-5.18
 
 # autoparts/xbuild/perl/plagger
 RUN export PATH=$HOME/local/perl-5.18/bin:$PATH
-RUN cpanm -Lextlib -n --installdeps ~/
+# RUN cpanm -Lextlib -n --installdeps ~/
 RUN yes | cpan \
     YAML::Loader \
     XML::LibXML \
