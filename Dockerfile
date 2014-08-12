@@ -2,6 +2,7 @@ FROM nitrousio/autoparts-builder
 
 RUN apt-get update; apt-get install -y \
   build-essential \
+  cron \
   libxml2 \
   emacs \
   openssh-server \
@@ -63,6 +64,7 @@ RUN echo 'action:nitrousio' | chpasswd
 RUN chsh -s /usr/bin/zsh root
 RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
 RUN chmod 777 /var/run/screen
+RUN chmod 777 -R /var/spool/cron
 RUN chown -R action:action /home/action
 
 # sshd
