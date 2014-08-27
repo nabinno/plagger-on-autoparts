@@ -1,15 +1,23 @@
 FROM nitrousio/autoparts-builder
 
 RUN apt-get update; apt-get install -y \
-  build-essential \
-  cron \
-  libxml2 \
-  emacs \
-  openssh-server \
-  screen \
-  tree \
-  vim \
-  zsh
+    build-essential \
+    cron \
+    libxml2 \
+    emacs \
+    openssh-server \
+    screen \
+    tree \
+    vim \
+    zsh \
+    software-properties-common \
+    python-software-properties
+RUN add-apt-repository -y \
+    ppa:cassou/emacs
+RUN apt-get update; apt-get install -y \
+    emacs24 \
+    emacs24-el \
+    emacs24-common-non-dfsg
 
 # autoparts
 RUN parts install heroku_toolbelt
