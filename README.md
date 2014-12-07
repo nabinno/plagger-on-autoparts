@@ -19,8 +19,7 @@ INDEX
 - [tagomoris/xbuild](https://github.com/tagomoris/xbuild)
 - [nitrous-io/autoparts](https://github.com/nitrous-io/autoparts)
 - [purcell/emacs.d](https://github.com/purcell/emacs.d)
-- [nabinno/dot-files](https://github.com/nabinno/dot-files)
-- [nabinno/dot-plagger](https://github.com/nabinno/dot-plagger)
+- [nabinno/dotfiles](https://github.com/nabinno/dotfiles)
 - [nabinno/plagger-on-autoparts](https://github.com/nabinno/plagger-on-autoparts)
 - etc.
 
