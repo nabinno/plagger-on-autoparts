@@ -71,9 +71,9 @@ foo@centos% docker build -t nitrousio/autoparts-builder https://raw.githubuserco
 foo@centos% docker build -t nabinno/plagger-on-autoparts https://raw.githubusercontent.com/nabinno/plagger-on-autoparts/master/Dockerfile
 
 ### start sshd server
-foo@centos% docker run -t -d -P nabinno/plagger-on-autoparts /usr/sbin/sshd -D
+foo@centos% docker run -t -d -p 30000:3000 -P nabinno/play-on-autoparts /usr/sbin/sshd -D
 
-### get port
+### get port-plaggeronubuntu
 foo@centos% docker inspect --format {{.NetworkSettings.IPAddress}} $(docker ps -l -q)
 foo@centos% docker inspect --format {{.NetworkSettings.Ports}} $(docker ps -l -q)
 
@@ -82,14 +82,9 @@ client# ssh-keygen -t rsa
 client# ssh-copy-id -i ~/.ssh/id_rsa.pub action@plaggeronubuntu -p port-plaggeronubuntu
 client# mv ~/.ssh/id_rsa ~/.ssh/id_rsa_action@plaggeronubuntu
 client# ssh -t action@plaggeronubuntu(centos.host) zsh -p port-plaggeronubuntu
+action@plaggeronubuntu# sudo sed -i "s/^\(#PasswordAuthentication yes\)/\1\nPasswordAuthentication no/g" /etc/ssh/sshd_config
+action@plaggeronubuntu# echo 'action:baz' | sudo chpasswd
 foo@centos% docker commit $(docker ps -l -q) container_id
-foo@centos% docker run -i -t nabinno/plagger-on-autoparts zsh
-root@plaggeronubuntu# sed -i "s/^\(#PasswordAuthentication yes\)/\1\nPasswordAuthentication no/g" /etc/ssh/sshd_config
-root@plaggeronubuntu# echo 'action:baz' | chpasswd
-root@plaggeronubuntu# /etc/init.d/ssh restart
-foo@centos% docker commit $(docker ps -l -q) container_id
-foo@centos% docker run -t -d -P nabinno/plagger-on-autoparts /usr/sbin/sshd -D
-client# ssh -t action@plaggeronubuntu zsh -p port-plaggeronubuntu
 ```
 
 
