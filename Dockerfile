@@ -67,6 +67,7 @@ RUN sed -i "s/^\(PATH=\"\/usr\/local\/sbin:\/usr\/local\/bin:\/usr\/sbin:\/usr\/
 RUN chmod 640 /etc/sudoers
 RUN sed -i "s/^\(# User privilege specification\)$/\1\naction  ALL=(ALL)       ALL/g" /etc/sudoers
 RUN chmod 440 /etc/sudoers
+RUN locale-gen en_US.UTF-8
 RUN echo 'root:screencast' | chpasswd
 RUN echo 'action:nitrousio' | chpasswd
 RUN chsh -s /usr/bin/zsh root
